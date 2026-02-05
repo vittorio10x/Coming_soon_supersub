@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supersub - Coming Soon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 25%, #388e3c 50%, #4caf50 75%, #66bb6a 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            overflow: hidden;
+            position: relative;
+            padding-left: 8%;
+            color: white;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Pattern Overlay for Texture */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.3;
+            pointer-events: none;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4rem; /* More space to push content down slightly */
+            letter-spacing: 2px;
+            z-index: 10;
+            position: absolute;
+            top: 40px;
+            left: 8%;
+        }
+
+        .main-content {
+            z-index: 10;
+            max-width: 600px;
+        }
+
+        .website-status {
+            font-size: 1rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .main-title {
+            font-size: 4.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 15px;
+            line-height: 1.1;
+        }
+
+        .main-title .highlight {
+            color: #a5d6a7; /* Lighter green for contrast */
+            text-shadow: 0 0 20px rgba(165, 214, 167, 0.4);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+            font-style: italic;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .countdown-item {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Align left like screenshot */
+        }
+
+        .countdown-value {
+            font-size: 3.5rem;
+            font-weight: 600;
+            color: #ffffff;
+            line-height: 1;
+            margin-bottom: 8px;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: capitalize;
+        }
+
+        .cta-button {
+            padding: 15px 35px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            color: #ffffff;
+            font-size: 0.95rem;
+            font-weight: 500;
+            border-radius: 4px; /* Slightly squarer like screenshot */
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button:hover {
+            background: #ffffff;
+            color: #2e7d32;
+            border-color: #ffffff;
+        }
+
+        .cta-button::after {
+            content: '▶';
+            font-size: 0.7rem;
+        }
+
+        /* SVG Soccer Ball Container */
+        .football-container {
+            position: absolute;
+            right: 15%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 350px;
+            height: 350px;
+            z-index: 5;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+            animation: floatBall 6s ease-in-out infinite;
+        }
+
+        @keyframes floatBall {
+            0%, 100% { transform: translateY(-50%) translateY(0); }
+            50% { transform: translateY(-50%) translateY(-20px); }
+        }
+
+        /* SVG Styles */
+        .football-svg {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke: white;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        @media (max-width: 1200px) {
+            .football-container {
+                width: 250px;
+                height: 250px;
+                right: 5%;
+                opacity: 0.8;
+            }
+        }
+
+        @media (max-width: 968px) {
+            body {
+                padding-left: 5%;
+                padding-right: 5%;
+                align-items: center; /* Center on mobile */
+                text-align: center;
+            }
+
+            .logo {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            .countdown-item {
+                align-items: center;
+            }
+
+            .football-container {
+                position: relative;
+                right: auto;
+                top: auto;
+                transform: none;
+                width: 180px;
+                height: 180px;
+                margin: 40px auto 0;
+                order: -1; /* Move above text on mobile if desired, or keep below */
+                animation: floatMobile 6s ease-in-out infinite;
+            }
+
+            @keyframes floatMobile {
+                 0%, 100% { transform: translateY(0); }
+                 50% { transform: translateY(-15px); }
+            }
+
+            .countdown {
+                justify-content: center;
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2.8rem;
+            }
+
+            .countdown-value {
+                font-size: 2.2rem;
+            }
+
+            .countdown {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo">Supersub</div>
+
+    <div class="main-content">
+        <div class="website-status">Website Is Under Construction</div>
+        <h1 class="main-title">
+            We're <span class="highlight">Launching</span> Soon
+        </h1>
+        <div class="subtitle">TZO che c ngarramm</div>
+
+        <div class="countdown" id="countdown">
+            <div class="countdown-item">
+                <div class="countdown-value" id="days">40</div>
+                <div class="countdown-label">Days</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-value" id="hours">00</div>
+                <div class="countdown-label">Hours</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-value" id="minutes">00</div>
+                <div class="countdown-label">Minutes</div>
+            </div>
+            <div class="countdown-item">
+                <div class="countdown-value" id="seconds">00</div>
+                <div class="countdown-label">Seconds</div>
+            </div>
+        </div>
+
+        <a href="#" class="cta-button">Learn More</a>
+    </div>
+
+    <!-- SVG Soccer Ball -->
+    <div class="football-container">
+        <svg class="football-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" stroke="white" stroke-width="1.5"/>
+            <path d="M12 7L14.939 9.135L13.816 12.59H10.184L9.061 9.135L12 7Z" stroke="white" stroke-width="1.5"/>
+            <path d="M12 7V3" stroke="white" stroke-width="1.5"/>
+            <path d="M14.939 9.135L18.5 7.5" stroke="white" stroke-width="1.5"/>
+            <path d="M13.816 12.59L17 16" stroke="white" stroke-width="1.5"/>
+            <path d="M10.184 12.59L7 16" stroke="white" stroke-width="1.5"/>
+            <path d="M9.061 9.135L5.5 7.5" stroke="white" stroke-width="1.5"/>
+        </svg>
+    </div>
+
+    <script>
+        const launchDate = new Date();
+        launchDate.setDate(launchDate.getDate() + 40);
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = launchDate.getTime() - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
